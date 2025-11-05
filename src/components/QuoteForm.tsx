@@ -2,28 +2,36 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MapPin, Truck } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { MapPin, Truck, Package, Weight } from "lucide-react";
 import { toast } from "sonner";
 
 const QuoteForm = () => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
+  const [weight, setWeight] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!origin.trim() || !destination.trim()) {
-      toast.error("Por favor, preencha origem e destino");
+    if (!origin.trim() || !destination.trim() || !description.trim()) {
+      toast.error("Por favor, preencha origem, destino e descrição da mercadoria");
       return;
     }
 
     // Validate input length
-    if (origin.length > 200 || destination.length > 200) {
-      toast.error("Origem e destino devem ter no máximo 200 caracteres");
+    if (origin.length > 200 || destination.length > 200 || description.length > 500) {
+      toast.error("Por favor, verifique o tamanho dos campos");
       return;
     }
 
-    const message = `Olá! Gostaria de solicitar um orçamento de frete.\n\n📍 Origem: ${origin}\n📍 Destino: ${destination}`;
+    let message = `Olá! Gostaria de solicitar um orçamento de frete.\n\n📍 Origem: ${origin}\n📍 Destino: ${destination}\n📦 Descrição: ${description}`;
+    
+    if (weight.trim()) {
+      message += `\n⚖️ Peso: ${weight} kg`;
+    }
+    
     const encodedMessage = encodeURIComponent(message);
     const whatsappNumber = "5511999999999"; // Replace with actual WhatsApp number
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -67,6 +75,41 @@ const QuoteForm = () => {
             maxLength={200}
             required
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="description" className="text-lg font-medium flex items-center gap-2">
+            <Package className="w-5 h-5 text-primary" />
+            Descrição da Mercadoria
+          </Label>
+          <Textarea
+            id="description"
+            placeholder="Ex: Móveis, eletrodomésticos, materiais de construção..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="min-h-24 text-lg resize-none"
+            maxLength={500}
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="weight" className="text-lg font-medium flex items-center gap-2">
+            <Weight className="w-5 h-5 text-muted-foreground" />
+            Peso Aproximado (opcional)
+          </Label>
+          <Input
+            id="weight"
+            type="text"
+            placeholder="Ex: 500 kg, 1 tonelada..."
+            value={weight}
+            onChange={(e) => setWeight(e.target.value)}
+            className="h-14 text-lg"
+            maxLength={50}
+          />
+          <p className="text-sm text-muted-foreground">
+            Se não souber o peso exato, não tem problema. Nos informe na descrição.
+          </p>
         </div>
       </div>
 
