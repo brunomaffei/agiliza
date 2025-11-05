@@ -10,7 +10,7 @@ const Hero = () => {
           <img 
             src={agilizaLogo} 
             alt="Agiliza - Frete Sob Demanda" 
-            className="w-auto h-32 md:h-40 object-contain drop-shadow-lg"
+            className="w-auto h-48 md:h-64 lg:h-72 object-contain drop-shadow-lg"
           />
         </div>
         
