@@ -6,12 +6,15 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,107,53,0.05),transparent_50%)]" />
       
       <div className="relative max-w-4xl mx-auto text-center space-y-8">
-        <div className="flex justify-center">
-          <img 
-            src={agilizaLogo} 
-            alt="Agiliza - Frete Sob Demanda" 
-            className="w-auto h-48 md:h-64 lg:h-72 object-contain drop-shadow-lg"
-          />
+        <div className="flex justify-center animate-fade-in-up">
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+            <img 
+              src={agilizaLogo} 
+              alt="Agiliza - Frete Sob Demanda" 
+              className="relative w-auto h-48 md:h-64 lg:h-72 object-contain animate-glow-pulse transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
         </div>
         
         <div className="space-y-4">
