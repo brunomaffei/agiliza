@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ].filter(Boolean),
+  base: "/agiliza",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
