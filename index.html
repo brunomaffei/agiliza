@@ -23,6 +23,18 @@
 
   <body>
     <div id="root"></div>
+    <script>
+    (function () {
+      var base = "/agiliza/";
+      if (location.pathname.startsWith(base) && !location.hash) {
+        var rest = location.pathname.slice(base.length);
+        location.replace(
+          base + "#" + (rest ? "/" + rest : "/") + location.search + location.hash
+        );
+      }
+    })();
+    </script>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
